@@ -8,15 +8,15 @@
     <nav>
       <a href="/">HOME</a>
       |
-      <a href="{{ route('kegiatan.index') }}">Kegiatan</a>
-      |
       <a href="/">Index</a>
       <?php if(!Session::has('email')){
         echo '       |     <a href="/login">Login</a>
         |
         <a href="/register">Register</a>';
       }else{
-        echo '    | <a href="logout">Logout</a>';
+        echo '| <a href="' . route('kegiatan.index') . '">Kegiatan</a> 
+              | <a href="logout">Logout</a>';
+
       }
       ?>
     </nav>
