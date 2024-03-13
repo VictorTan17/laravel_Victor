@@ -13,22 +13,27 @@ class RegisterController extends Controller
     }
 
     public function actionregister (Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|password_uppercase|password_symbol|password_number|min:6',
+        ]);
         $data = [
-            'email' => $request->input('email1'),
-            'password' => $request->input('password1'),
-            'nama' => $request->input('nama1'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'name' => $request->input('name'),
         ];
-        $user = DB::table('user')
+        $user = DB::table('users')
         ->where('email',$data['email'])
         ->first();
         if($user){
             Session::flash('error', 'Email Sudah Digunakan');
             return view ('register'); 
         }
-        $user = DB::table('user')->insert([
+        $user = DB::table('users')->insert([
             'email' => $data['email'],
-            'password' => $data['password'],
-            'nama' => $data['nama'],
+            'password' => md5($data['password']),
+            'name' => $data['name'],
         ]);
         return redirect ('login');
     }

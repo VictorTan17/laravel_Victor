@@ -30,12 +30,6 @@
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Nama:</strong>
-                    <input type="text" name="nama" value="{{ $kegiatan->nama }}" class="form-control" placeholder="Nama">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
                     <strong>Tanggal:</strong>
                     <input type="date" name="tanggal" value="{{ $kegiatan->tanggal }}" class="form-control" placeholder="Tanggal">
                 </div>
@@ -58,4 +52,13 @@
         </div>
    
     </form>
+    @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 @endsection

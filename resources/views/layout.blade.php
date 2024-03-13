@@ -9,14 +9,14 @@
       <a href="/">HOME</a>
       |
       <a href="/">Index</a>
-      <?php if(!Session::has('email')){
+      <?php if(!Session::has('id')){
         echo '       |     <a href="/login">Login</a>
         |
         <a href="/register">Register</a>';
       }else{
         echo '| <a href="' . route('kegiatan.index') . '">Kegiatan</a> 
               | <a href="logout">Logout</a>';
-
+              
       }
       ?>
     </nav>

@@ -9,7 +9,7 @@ class Kegiatans extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama',
+        'user_id',
         'tanggal',
         'jam',
         'deskripsi'

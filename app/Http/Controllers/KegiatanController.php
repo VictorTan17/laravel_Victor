@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Kegiatans;
 use Illuminate\Paginate;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class KegiatanController extends Controller
 {
 
     public function index () {
-        $kegiatan = Kegiatans::paginate(5);
+        $kegiatan = Kegiatans::where('user_id', Session::get('id'))->paginate(5);
         return view('kegiatan.index',compact('kegiatan'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -23,13 +24,14 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
             'tanggal' => 'required',
             'jam' => 'required',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|min:20',
         ]);
+        $requestData = $request->all();
+        $requestData['user_id'] = Session::get('id');
   
-        Kegiatans::create($request->all());
+        Kegiatans::create($requestData);
         return redirect()->route('kegiatan.index')->with('success','Kegiatan Behasil di tambahkan.');
     }
 
@@ -46,13 +48,12 @@ class KegiatanController extends Controller
     public function update(Request $request, kegiatans $kegiatan)
     {
         $request->validate([
-            'nama' => 'required',
             'tanggal' => 'required',
             'jam' => 'required',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|min:20',
         ]);
   
-        $kegiatan->update($kegiatan->all());
+        $kegiatan->update($request->all());
   
         return redirect()->route('kegiatan.index')->with('success','Kegiatan berhasil di ubah');
     }

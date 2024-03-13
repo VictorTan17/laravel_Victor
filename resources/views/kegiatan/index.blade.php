@@ -20,7 +20,6 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Name</th>
             <th>Tanggal</th>
             <th>Jam</th>
             <th>Deskripsi</th>
@@ -29,7 +28,6 @@
         @foreach ($kegiatan as $k)
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $k->nama }}</td>
             <td>{{ $k->tanggal }}</td>
             <td>{{ $k->jam }}</td>
             <td>{{ $k->deskripsi }}</td>
