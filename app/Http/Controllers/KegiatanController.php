@@ -15,7 +15,7 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatans::where('user_id', Session::get('id'))->paginate(5);
         return view('kegiatan.index',compact('kegiatan'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
-
+// tes
     public function create()
     {
         return view('kegiatan.create');
