@@ -23,6 +23,5 @@ Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actio
 Route::get('/index', [HomeController::class, 'index']);
 Route::get('/register', [RegisterController::class, 'register_page']);
 Route::post('actionregister', [RegisterController::class, 'actionregister'])->name('actionregister');
-Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-// Route::get('kegiatan1', [KegiatanController::class, 'kegiatan']);
-Route::resource('kegiatan', KegiatanController::class);
+Route::get('logout', [LoginController::class, 'logout'])->name('logout')->middleware('checkSessionKey:id');
+Route::resource('kegiatan', KegiatanController::class)->middleware('checkSessionKey:id');

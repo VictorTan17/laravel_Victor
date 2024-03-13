@@ -14,17 +14,21 @@ class LoginController extends Controller
     }
 
     public function actionlogin (Request $request){
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
         $data = [
-            'email' => $request->input('email1'),
-            'password' => $request->input('password1'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
         ];
 
-        $user = DB::table('user')
+        $user = DB::table('users')
         ->where('email',$data['email'])
-        ->where('password',$data['password'])
+        ->where('password',md5($data['password']))
         ->first();
         if($user){
-            Session::put('email', $data['email']);
+            Session::put('id', $user->id);
             return redirect('index');
         }else{
             Session::flash('error', 'Email atau Password anda salah!');
@@ -32,7 +36,7 @@ class LoginController extends Controller
         }
     }
     public function logout (){
-        Session::forget('email');
+        Session::forget('id');
         return redirect ('/');
     }
 }
